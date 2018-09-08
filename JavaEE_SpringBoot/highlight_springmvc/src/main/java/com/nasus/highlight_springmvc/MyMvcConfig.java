@@ -1,9 +1,12 @@
 package com.nasus.highlight_springmvc;
 
 import com.nasus.highlight_springmvc.interceptor.DemoInterceptor;
+import com.nasus.highlight_springmvc.messageconverter.MyMessageConverter;
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -79,5 +82,15 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(1000000);
         return multipartResolver;
+    }
+
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(converter());
+    }
+
+    @Bean
+    public MyMessageConverter converter(){
+        return new MyMessageConverter();
     }
 }
