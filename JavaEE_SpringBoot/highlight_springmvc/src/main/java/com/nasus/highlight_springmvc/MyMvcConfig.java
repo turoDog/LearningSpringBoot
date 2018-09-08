@@ -1,10 +1,12 @@
 package com.nasus.highlight_springmvc;
 
+import com.nasus.highlight_springmvc.interceptor.DemoInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -37,10 +39,21 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
         return viewResolver;
     }
 
-    /*@Override
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler("/assets/**").addResourceLocations(
                 "classpath:/assets/");
-    }*/
+    }
+
+    @Bean
+    // 1
+    public DemoInterceptor demoInterceptor() {
+        return new DemoInterceptor();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {// 2
+        registry.addInterceptor(demoInterceptor());
+    }
 
 }
