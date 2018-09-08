@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
@@ -70,5 +72,12 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         configurer.setUseSuffixPatternMatch(false);
+    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(1000000);
+        return multipartResolver;
     }
 }
