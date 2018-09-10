@@ -1,5 +1,6 @@
 package com.nasus.ch5_2_2;
 
+import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -11,7 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class Ch522Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Ch522Application.class, args);
+        //SpringApplication.run(Ch522Application.class, args);
+        //关闭 banner
+        SpringApplication app = new SpringApplication(Ch522Application.class);
+        app.setBannerMode(Mode.OFF);
+        app.run(args);
     }
 
     @RequestMapping("")
